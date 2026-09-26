@@ -6,7 +6,8 @@ import (
 
 func cleanInput(text string) []string {
 	var val []string
-	cleanedString := strings.TrimSpace(text)
+	lowerCase := strings.ToLower(text)
+	cleanedString := strings.TrimSpace(lowerCase)
 	val = strings.Split(cleanedString, " ")
 
 	return val
