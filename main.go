@@ -14,8 +14,18 @@ func main() {
 		if err := scanner.Err(); err != nil {
 			fmt.Printf("Invalid input: %s", err)
 		}
-		var splitInput []string
-		splitInput = cleanInput(scanner.Text())
-		fmt.Printf("Your command was: %s\n", splitInput[0])
+		userInput := cleanInput(scanner.Text())
+		cmd, exists := getCommands()[userInput[0]]
+		if exists {
+			err := cmd.callback()
+			if err != nil {
+				fmt.Println(err)
+			}
+			continue
+		} else {
+			fmt.Println("Unknown command")
+			continue
+		}
+
 	}
 }
