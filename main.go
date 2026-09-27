@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
+	cfg := &config{
+		commands: getCommands(),
+	}
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		fmt.Print("Pokedex >")
@@ -15,9 +18,9 @@ func main() {
 			fmt.Printf("Invalid input: %s", err)
 		}
 		userInput := cleanInput(scanner.Text())
-		cmd, exists := getCommands()[userInput[0]]
+		cmd, exists := cfg.commands[userInput[0]]
 		if exists {
-			err := cmd.callback()
+			err := cmd.callback(cfg)
 			if err != nil {
 				fmt.Println(err)
 			}
