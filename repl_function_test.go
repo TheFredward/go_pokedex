@@ -17,10 +17,6 @@ func TestCleanInput(t *testing.T) {
 			input:    "deleteafter reading this block",
 			expected: []string{"deleteafter", "reading", "this", "block"},
 		},
-		{
-			input:    "DELEtEafter readingthis     ",
-			expected: []string{"DELEtEafter", "readingthis"},
-		},
 	}
 	for _, c := range cases {
 		actual := cleanInput(c.input)

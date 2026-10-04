@@ -1,9 +1,14 @@
 package main
 
+import (
+	"github.com/TheFredward/go_pokedex/internal/pokecache"
+)
+
 type config struct {
 	commands    map[string]cliCommand
 	NextURL     string
 	PreviousURL string
+	cache       *pokecache.Cache
 }
 
 type cliCommand struct {
