@@ -187,8 +187,9 @@ func listCaptured(cfg *config, userString string) error {
 	if len(cfg.capturedPokemon) == 0 {
 		fmt.Print("No pokemon captured!\n")
 	} else {
+		fmt.Print("Your current Pokedex:\n")
 		for monster := range cfg.capturedPokemon {
-			fmt.Printf("%s ", monster)
+			fmt.Printf("-%s\n", monster)
 		}
 	}
 	return nil
