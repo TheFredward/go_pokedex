@@ -5,16 +5,17 @@ import (
 )
 
 type config struct {
-	commands    map[string]cliCommand
-	NextURL     string
-	PreviousURL string
-	cache       *pokecache.Cache
+	commands        map[string]cliCommand
+	NextURL         string
+	PreviousURL     string
+	cache           *pokecache.Cache
+	capturedPokemon map[string]Pokemon
 }
 
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -38,6 +39,26 @@ func getCommands() map[string]cliCommand {
 			name:        "mapp",
 			description: "Displays the previous 20 locations in Pokemon",
 			callback:    getPreviousMapData,
+		},
+		"explore": {
+			name:        "explore",
+			description: "Displays the name of all pokemon found in area",
+			callback:    getLocationData,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Attempt to capture pokemon, requires user input",
+			callback:    catchPokemon,
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "View data on specific pokemon. Usage inspect <pokemon-name>",
+			callback:    inspectPokemon,
+		},
+		"list": {
+			name:        "list",
+			description: "Vew captured pokemon",
+			callback:    listCaptured,
 		},
 	}
 }

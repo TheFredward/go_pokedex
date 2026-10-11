@@ -6,13 +6,13 @@ import (
 	"strings"
 )
 
-func commandExit(cfg *config) error {
+func commandExit(cfg *config, userInput string) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil
 }
 
-func commandHelp(cfg *config) error {
+func commandHelp(cfg *config, userInput string) error {
 	fmt.Print("Welcome to the Pokedex!\n")
 	fmt.Print("Usage:\n\n")
 	cmd := cfg.commands

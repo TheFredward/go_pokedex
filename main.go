@@ -11,11 +11,13 @@ import (
 
 func main() {
 	cfg := &config{
-		commands: getCommands(),
-		cache:    pokecache.NewCache(5 * time.Second),
+		commands:        getCommands(),
+		cache:           pokecache.NewCache(5 * time.Second),
+		capturedPokemon: map[string]Pokemon{},
 	}
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
+		var err error
 		fmt.Print("Pokedex >")
 		scanner.Scan()
 		if err := scanner.Err(); err != nil {
@@ -24,7 +26,11 @@ func main() {
 		userInput := cleanInput(scanner.Text())
 		cmd, exists := cfg.commands[userInput[0]]
 		if exists {
-			err := cmd.callback(cfg)
+			if len(userInput) > 1 {
+				err = cmd.callback(cfg, userInput[1])
+			} else {
+				err = cmd.callback(cfg, "")
+			}
 			if err != nil {
 				fmt.Println(err)
 			}
